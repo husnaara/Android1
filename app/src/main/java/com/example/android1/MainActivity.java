@@ -36,4 +36,27 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        btnLogin.setOnClickListener(v->{
+            String username = etUsername.getText().toString();
+            String password = etPassword.getText().toString();
+
+            if (username.isEmpty() || password.isEmpty()) {
+                Toast.makeText(MainActivity.this, "Please enter all the fields", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                DatabaseHelper dbHelper = new DatabaseHelper(MainActivity.this);
+                boolean result = dbHelper.checkUserByUsername(username, password);
+                if(result){
+                    Toast.makeText(MainActivity.this,"Welcome valid user", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(MainActivity.this,HomePageActivity.class); // Assuming HomeActivity is the activity after login
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(MainActivity.this, "Invalid Username and password!", Toast.LENGTH_SHORT).show();
+
+                }
+            }
+
+        });
+
     }}
