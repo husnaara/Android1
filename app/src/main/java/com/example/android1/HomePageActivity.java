@@ -10,6 +10,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
 import android.widget.SeekBar;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,6 +42,8 @@ public class HomePageActivity extends AppCompatActivity {
     private RatingBar ratingBar;
     private SeekBar seekBar;
     private TextView progressText;
+    private Switch switchButton;
+    private TextView switchStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,7 +119,7 @@ public class HomePageActivity extends AppCompatActivity {
                 ratingText.setText("Rating: " + rating);
             }
         });
-
+//for seekbar
         seekBar = findViewById(R.id.seekbar);
         progressText = findViewById(R.id.progressText);
 
@@ -139,8 +142,24 @@ public class HomePageActivity extends AppCompatActivity {
 
             }
         });
+//for switch
+        switchButton = findViewById(R.id.switchButton);
+        switchStatus = findViewById(R.id.switchStatus);
 
+        switchStatus.setText("Switch is OFF");
 
+        switchButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                    switchStatus.setText("Switch is ON");
+                } else {
+
+                    switchStatus.setText("Switch is OFF");
+                }
+            }
+        });
 
 
         placeOrder.setOnClickListener(v -> {
