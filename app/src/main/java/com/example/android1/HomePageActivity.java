@@ -9,6 +9,7 @@ import android.widget.CompoundButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RatingBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,13 +32,15 @@ public class HomePageActivity extends AppCompatActivity {
     private RadioGroup radioGroup;
     private RadioButton radioButton;
 
-    private TextView quantityTextView, priceTextView, birdshome, ratingText;
+    private TextView quantityTextView, priceTextView, birdshome, ratingText,seekbar;
     private Button increment, decrement, placeOrder;
     private int quantity = 0;
     private int price = 0;
 
     private AlertDialog.Builder builder;
     private RatingBar ratingBar;
+    private SeekBar seekBar;
+    private TextView progressText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,8 +56,8 @@ public class HomePageActivity extends AppCompatActivity {
         //For CheckBox
         parrots = findViewById(R.id.parrots);
         lovebirds = findViewById(R.id.lovebirds);
-        macaws= findViewById(R.id.macaws);
-       birdshome = findViewById(R.id.birdshome);
+        macaws = findViewById(R.id.macaws);
+        birdshome = findViewById(R.id.birdshome);
 
         //For RadioGroup
         radioGroup = findViewById(R.id.radioGroup);
@@ -71,6 +74,8 @@ public class HomePageActivity extends AppCompatActivity {
         //For RatingBar
         ratingBar = findViewById(R.id.ratingBar);
         ratingText = findViewById(R.id.rating);
+
+
 
         parrots.setOnCheckedChangeListener((buttonView, isChecked) -> {
             check(buttonView, isChecked);
@@ -89,7 +94,7 @@ public class HomePageActivity extends AppCompatActivity {
             priceTextView.setText("$" + price);
         });
         decrement.setOnClickListener(v -> {
-            if(quantity>0){
+            if (quantity > 0) {
                 quantity--;
                 price = quantity * 250;
                 quantityTextView.setText("" + quantity);
@@ -111,6 +116,32 @@ public class HomePageActivity extends AppCompatActivity {
                 ratingText.setText("Rating: " + rating);
             }
         });
+
+        seekBar = findViewById(R.id.seekbar);
+        progressText = findViewById(R.id.progressText);
+
+        progressText.setText("Progress: " + seekBar.getProgress() + " / " + seekBar.getMax());
+
+        seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+
+                progressText.setText("Progress: " + progress + " / " + seekBar.getMax());
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+
+
 
         placeOrder.setOnClickListener(v -> {
             try {
